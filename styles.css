@@ -114,9 +114,11 @@ html, body {
 }
 
 .main-product-image {
-  width: 100%;
+  width: 72%;
+  max-width: 390px;
   border-radius: var(--radius);
   display: block;
+  margin: 0 auto;
 }
 
 h1 {
@@ -259,6 +261,31 @@ h1 {
   margin-inline-start: 8px;
   font-size: 15px;
   font-weight: 700;
+}
+
+.countdown-wrap {
+  max-width: 1200px;
+  margin: 10px auto 0;
+  padding: 0 16px;
+  text-align: center;
+}
+
+.countdown-title {
+  margin: 0 0 6px;
+  font-size: 19px;
+  font-weight: 800;
+  color: #17325c;
+}
+
+.countdown-timer {
+  margin: 0;
+  background: linear-gradient(90deg, #10233f, #1f4f86);
+  color: #fff;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 1px;
 }
 
 .inline-old {
