@@ -266,3 +266,103 @@ langToggle.addEventListener("click", () => {
 langOptions.forEach((btn) => {
   btn.addEventListener("click", () => {
     setLanguage(btn.dataset.lang);
+    langMenu.setAttribute("hidden", "");
+    langToggle.setAttribute("aria-expanded", "false");
+  });
+});
+
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".lang-menu-wrap")) {
+    langMenu.setAttribute("hidden", "");
+    langToggle.setAttribute("aria-expanded", "false");
+  }
+});
+
+waBtn.href = `https://wa.me/212663730766?text=${encodeURIComponent("السلام عليكم، أريد طلب هذا المنتج")}`;
+
+if (qtyPlusBtn) {
+  qtyPlusBtn.addEventListener("click", () => {
+    quantityInput.value = String(getSafeQuantity() + 1);
+    updatePriceUI();
+  });
+}
+
+if (qtyMinusBtn) {
+  qtyMinusBtn.addEventListener("click", () => {
+    quantityInput.value = String(Math.max(1, getSafeQuantity() - 1));
+    updatePriceUI();
+  });
+}
+
+if (quantityInput) {
+  quantityInput.addEventListener("input", updatePriceUI);
+}
+
+if (phoneInput) {
+  phoneInput.addEventListener("input", () => {
+    normalizePhoneInput();
+    if (formMessage && formMessage.textContent) {
+      formMessage.textContent = "";
+    }
+  });
+}
+
+orderForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  formMessage.textContent = "";
+  if (successBanner) {
+    successBanner.textContent = "";
+    successBanner.setAttribute("hidden", "");
+  }
+
+  const qty = getSafeQuantity();
+  const total = qty * UNIT_PRICE;
+
+  const normalizedPhone = normalizePhoneInput();
+  if (!isValidPhone(normalizedPhone)) {
+    formMessage.textContent = getPhoneErrorMessage();
+    if (phoneInput) phoneInput.focus();
+    return;
+  }
+
+  const payload = {
+    fullName: document.getElementById("fullName").value.trim(),
+    phone: normalizedPhone,
+    address: document.getElementById("address").value.trim(),
+    product: state.lang === "ar" ? "الحقيبة الذكية للحماية من السرقة" : "Sac intelligent anti-vol",
+    price: state.lang === "ar" ? "129 درهم" : "129 MAD",
+    source: window.location.href,
+    quantity: qty,
+    totalPrice: state.lang === "ar" ? `${total} درهم` : `${total} MAD`,
+    timestamp: new Date().toISOString()
+  };
+
+  try {
+    const res = await fetch("https://script.google.com/macros/s/AKfycbyVYNB1Kb_q9jHRDSDVTFC3VYoy520hnwddzMF-80AUL6OA_mG7kq6iuMq29JTG4X8X1Q/exec", {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    if (res || res === undefined) {
+      formMessage.textContent = "";
+      if (successBanner) {
+        successBanner.textContent = content[state.lang].success;
+        successBanner.removeAttribute("hidden");
+      }
+      orderForm.reset();
+      if (quantityInput) quantityInput.value = "1";
+      updatePriceUI();
+    } else {
+      formMessage.textContent = content[state.lang].fail;
+    }
+  } catch (err) {
+    formMessage.textContent = content[state.lang].fail;
+  }
+});
+
+setInterval(rotateAnnouncement, 5000);
+applyLanguage("ar");
+updatePriceUI();
+startCountdown();
