@@ -7,14 +7,14 @@ const content = {
   ar: {
     pageTitle: "الحقيبة الذكية للحماية من السرقة – Lilia",
     announce: [
-      "🔥 عرض خاص: من 200dh إلى 129dh لمدة 4 أيام",
+      "🔥 عرض خاص: من 200dh إلى 149dh لمدة 4 أيام",
       "توصيل مجاني على جميع المنتجات",
       "إرجاع السلع حتى بعد 7 أيام"
     ],
     title: "الحقيبة الذكية للحماية من السرقة",
-    price: "129 درهم",
+    price: "149 درهم",
     badge: "عرض خاص",
-    buy: "اشتري الآن - 129 درهم",
+    buy: "اشتري الآن - 149 درهم",
     formTitle: "المرجو ملئ الاسثمارة أدناه 👇",
     orderProductNote: "سوف تقوم بطلب 1 منتج: الحقيبة الذكية للحماية من السرقة",
     wa: "تواصل معنا عبر الواتساب",
@@ -22,7 +22,7 @@ const content = {
     fail: "تعذر إرسال الطلب، حاول مرة أخرى",
     promoLead: "🔥 عرض خاص لمدة 4 أيام:",
     promoOldPriceTop: "200dh",
-    promoNewPriceTop: "129dh",
+    promoNewPriceTop: "149dh",
     promoOldPriceInline: "200 درهم",
     promoNote: "ينتهي العرض خلال 4 أيام",
     countdownTitle: "⏳ الوقت المتبقي على نهاية العرض:",
@@ -48,19 +48,20 @@ const content = {
     deliveryText: "بعد تأكيد طلبك، سيتواصل معك أحد أفراد فريقنا لتأكيد البيانات، ثم يتم شحن المنتج إليك مع الدفع عند الاستلام.",
     guaranteeTitle: "ضماناتنا",
     guaranteeText: "يمكنك معاينة المنتج عند الاستلام قبل الدفع. إذا لم يكن مطابقًا لتوقعاتك، يمكنك إلغاء الطلب بكل بساطة.",
+    shippingBannerText: "🚚 توصيل مجاني إلى جميع أنحاء المغرب 🚚",
     dir: "rtl"
   },
   fr: {
     pageTitle: "Sac intelligent anti-vol – Lilia",
     announce: [
-      "🔥 Offre spéciale : de 200dh à 129dh pendant 4 jours",
+      "🔥 Offre spéciale : de 200dh à 149dh pendant 4 jours",
       "Livraison gratuite sur tous les produits",
       "Retour des articles sous 7 jours"
     ],
     title: "Sac intelligent anti-vol",
-    price: "129 MAD",
+    price: "149 MAD",
     badge: "Offre spéciale",
-    buy: "Acheter maintenant - 129 MAD",
+    buy: "Acheter maintenant - 149 MAD",
     formTitle: "Veuillez remplir le formulaire ci-dessous 👇",
     orderProductNote: "Vous commandez 1 produit : Sac intelligent anti-vol",
     wa: "Contactez-nous sur WhatsApp",
@@ -68,7 +69,7 @@ const content = {
     fail: "Échec d’envoi, veuillez réessayer",
     promoLead: "🔥 Offre spéciale pendant 4 jours :",
     promoOldPriceTop: "200dh",
-    promoNewPriceTop: "129dh",
+    promoNewPriceTop: "149dh",
     promoOldPriceInline: "200 MAD",
     promoNote: "L’offre se termine dans 4 jours",
     countdownTitle: "⏳ Temps restant avant la fin de l’offre :",
@@ -94,6 +95,7 @@ const content = {
     deliveryText: "Après confirmation de votre commande, un membre de notre équipe vous contactera pour valider vos informations, puis le produit sera expédié avec paiement à la livraison.",
     guaranteeTitle: "Nos garanties",
     guaranteeText: "Vous pouvez vérifier le produit à la livraison avant de payer. S’il ne correspond pas à vos attentes, vous pouvez annuler simplement.",
+    shippingBannerText: "🚚 Livraison gratuite partout au Maroc 🚚",
     dir: "ltr"
   }
 };
@@ -118,7 +120,7 @@ const qtyMinusBtn = document.getElementById("qtyMinus");
 const totalPriceEl = document.getElementById("totalPrice");
 const successBanner = document.getElementById("successBanner");
 const countdownTimerEl = document.getElementById("countdownTimer");
-const UNIT_PRICE = 129;
+const UNIT_PRICE = 149;
 
 function applyLanguage(lang) {
   const t = content[lang];
@@ -163,6 +165,7 @@ function applyLanguage(lang) {
   setText("deliveryText", t.deliveryText);
   setText("guaranteeTitle", t.guaranteeTitle);
   setText("guaranteeText", t.guaranteeText);
+  setText("shippingBannerText", t.shippingBannerText);
 
   const fullNameInput = document.getElementById("fullName");
   const phoneEl = document.getElementById("phone");
@@ -330,7 +333,7 @@ orderForm.addEventListener("submit", async (e) => {
     phone: normalizedPhone,
     address: document.getElementById("address").value.trim(),
     product: state.lang === "ar" ? "الحقيبة الذكية للحماية من السرقة" : "Sac intelligent anti-vol",
-    price: state.lang === "ar" ? "129 درهم" : "129 MAD",
+    price: state.lang === "ar" ? "149 درهم" : "149 MAD",
     source: window.location.href,
     quantity: qty,
     totalPrice: state.lang === "ar" ? `${total} درهم` : `${total} MAD`,
